@@ -11,6 +11,6 @@ namespace APIBoletim.Domains
         Aluno BuscarPorID(int id);
         Aluno Cadastrar(Aluno a);
         Aluno Alterar(Aluno a);
-        Aluno Excluir(Aluno a);
+        void Excluir(int id);
     }
 }

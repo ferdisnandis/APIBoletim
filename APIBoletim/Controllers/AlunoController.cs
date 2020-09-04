@@ -43,9 +43,9 @@ namespace APIBoletim.Controllers
 
         // DELETE api/<AlunoController>/5
         [HttpDelete("{id}")]
-        public Aluno Delete(Aluno a)
+        public void Delete(int id)
         {
-            return repo.Excluir(a);
+            repo.Excluir(id);
         }
     }
 }

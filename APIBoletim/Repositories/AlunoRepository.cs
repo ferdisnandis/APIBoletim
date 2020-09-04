@@ -20,10 +20,18 @@ namespace APIBoletim.Repositories
             //Abrir a conexão
             cmd.Connection = conexao.Conectar();
 
-            cmd.CommandText = "UPDATE Aluno" +
-            "SET Idade = @idade" +
-            "WHERE IdAluno = @IdAluno";
+            cmd.CommandText = "UPDATE Aluno SET " +
+            "Nome = @nome, " +
+            "RA = @ra, " +
+            "Idade = @idade WHERE IdAluno =  @id";
 
+            cmd.Parameters.AddWithValue("@id", a.IdAluno);
+            cmd.Parameters.AddWithValue("@nome", a.Nome);
+            cmd.Parameters.AddWithValue("@ra", a.RA );
+            cmd.Parameters.AddWithValue("@idade", a.Idade);
+
+
+            cmd.ExecuteNonQuery();
             //Fechar a conexão
             conexao.Desconectar();
 
@@ -65,9 +73,6 @@ namespace APIBoletim.Repositories
             //Abrir conexão
             cmd.Connection = conexao.Conectar();
 
-            //Atribuir nossa conexão
-            cmd.CommandText = "SELECT * FROM ALUNO";
-
             //Cadastrar
             cmd.CommandText = "INSERT INTO Aluno " +
                 "(Nome, Ra, Idade)" +
@@ -85,7 +90,7 @@ namespace APIBoletim.Repositories
             return a;
         }
 
-        public Aluno Excluir(Aluno a)
+        public void Excluir(int id)
         {
             //Abrir conexão
             cmd.Connection = conexao.Conectar();
@@ -95,13 +100,12 @@ namespace APIBoletim.Repositories
                 "WHERE IdAluno = @id";
 
             //Procurar pelo Id
-            cmd.Parameters.AddWithValue("IdAluno", a.IdAluno);
+            cmd.Parameters.AddWithValue("@id", id);
 
+            cmd.ExecuteNonQuery();
             //Fechar Conexão
             conexao.Desconectar();
-
-            return a;
-        }
+        } 
 
         public List<Aluno> ListarTodos()
         {
